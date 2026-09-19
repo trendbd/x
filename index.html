@@ -8,34 +8,12 @@
   *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
   body{background:#f0f2f5;color:#1a1d29;min-height:100vh}
   
-  #login{min-height:100vh;display:flex;justify-content:center;align-items:center;
-    background:linear-gradient(135deg,#667eea,#764ba2);padding:20px}
-  .login-box{background:#fff;padding:40px 35px;border-radius:16px;
-    box-shadow:0 20px 60px rgba(0,0,0,.25);width:100%;max-width:380px;text-align:center}
-  .login-box .ico{width:70px;height:70px;margin:0 auto 18px;
-    background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;font-size:32px}
-  .login-box h1{font-size:22px;margin-bottom:6px}
-  .login-box p{color:#6b7280;font-size:14px;margin-bottom:24px}
-  .login-box input{width:100%;padding:14px 16px;border:2px solid #e5e7eb;
-    border-radius:10px;font-size:15px;outline:none;transition:.2s}
-  .login-box input:focus{border-color:#667eea}
-  .login-box button{width:100%;padding:14px;margin-top:14px;
-    background:#667eea;color:#fff;border:none;border-radius:10px;
-    font-size:16px;font-weight:600;cursor:pointer;transition:.2s}
-  .login-box button:hover{background:#5568d3}
-  .login-error{color:#dc3545;font-size:13px;margin-top:12px;display:none}
-
-  #app{display:none;min-height:100vh}
   .topbar{background:#fff;padding:16px 24px;display:flex;
     justify-content:space-between;align-items:center;border-bottom:1px solid #e5e7eb;
-    position:sticky;top:0;z-index:100}
-  .topbar .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
-  .topbar .brand-ico{width:34px;height:34px;background:linear-gradient(135deg,#667eea,#764ba2);
-    border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff}
-  .logout{padding:9px 18px;background:transparent;color:#dc3545;
-    border:1.5px solid #dc3545;border-radius:8px;font-weight:600;cursor:pointer;font-size:14px}
-  .logout:hover{background:#dc3545;color:#fff}
+    position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+  .topbar .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+  .topbar .brand-ico{width:36px;height:36px;background:linear-gradient(135deg,#667eea,#764ba2);
+    border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px}
   
   .wrap{max-width:1000px;margin:0 auto;padding:24px 16px}
   
@@ -51,23 +29,27 @@
   
   .row{display:flex;gap:10px;flex-wrap:wrap}
   .row input[type=url]{flex:1;min-width:200px;padding:13px 16px;
-    border:2px solid #e5e7eb;border-radius:10px;font-size:15px;outline:none}
+    border:2px solid #e5e7eb;border-radius:10px;font-size:15px;outline:none;transition:.2s}
   .row input:focus{border-color:#667eea}
   .btn-p{padding:13px 26px;background:#667eea;color:#fff;border:none;
-    border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap}
+    border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;transition:.2s}
   .btn-p:hover{background:#5568d3}
   .btn-p:disabled{background:#aaa;cursor:not-allowed}
   
   .result{margin-top:14px;padding:14px;background:#eef2ff;border-radius:10px;
-    border-left:4px solid #667eea;display:none}
+    border-left:4px solid #667eea;display:none;animation:slide .3s ease}
+  @keyframes slide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
   .result .lbl{font-size:13px;color:#6b7280;margin-bottom:6px}
   .result a{display:block;color:#667eea;font-weight:600;word-break:break-all;
     font-size:14px;text-decoration:none;margin-bottom:8px}
+  .result a:hover{text-decoration:underline}
   .result .acts{display:flex;gap:8px}
   .btn-sm{padding:7px 14px;border-radius:7px;border:none;font-size:13px;
-    font-weight:600;cursor:pointer}
+    font-weight:600;cursor:pointer;transition:.2s}
   .btn-copy{background:#28a745;color:#fff}
+  .btn-copy:hover{background:#218838}
   .btn-open{background:#667eea;color:#fff}
+  .btn-open:hover{background:#5568d3}
   
   .list-head{display:flex;justify-content:space-between;align-items:center;
     margin-bottom:14px;gap:10px;flex-wrap:wrap}
@@ -75,10 +57,12 @@
   .filters{display:flex;gap:8px;flex-wrap:wrap}
   .filters input,.filters select{padding:9px 13px;border:1.5px solid #e5e7eb;
     border-radius:8px;font-size:14px;outline:none;background:#fff}
+  .filters input:focus,.filters select:focus{border-color:#667eea}
   
   .links{display:flex;flex-direction:column;gap:12px}
   .item{background:#fff;border:1px solid #e5e7eb;border-left:4px solid #667eea;
-    border-radius:10px;padding:16px}
+    border-radius:10px;padding:16px;transition:.2s}
+  .item:hover{box-shadow:0 6px 20px rgba(0,0,0,.06)}
   .item.hid{opacity:.65;border-left-color:#ffc107;background:#fffdf5}
   .item .top{display:flex;justify-content:space-between;gap:10px;
     margin-bottom:8px;flex-wrap:wrap}
@@ -86,7 +70,7 @@
     text-decoration:none;word-break:break-all}
   .item .surl:hover{text-decoration:underline}
   .badges{display:flex;gap:6px;flex-wrap:wrap}
-  .b{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600}
+  .b{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
   .b-hid{background:#fef3c7;color:#92400e}
   .b-clk{background:#d1fae5;color:#065f46}
   .b-act{background:#dbeafe;color:#1e40af}
@@ -95,10 +79,13 @@
   .item .date{font-size:12px;color:#9ca3af;margin-bottom:10px}
   .acts{display:flex;gap:8px;flex-wrap:wrap}
   .ba{padding:7px 13px;border-radius:8px;border:none;font-size:13px;
-    font-weight:600;cursor:pointer}
+    font-weight:600;cursor:pointer;transition:.2s}
   .b-edit{background:#e0e7ff;color:#4338ca}
+  .b-edit:hover{background:#c7d2fe}
   .b-hide{background:#fef3c7;color:#92400e}
+  .b-hide:hover{background:#fde68a}
   .b-del{background:#fee2e2;color:#b91c1c}
+  .b-del:hover{background:#fecaca}
   
   .empty{text-align:center;padding:50px 20px;color:#6b7280}
   .empty .e{font-size:48px;margin-bottom:12px}
@@ -107,7 +94,8 @@
     z-index:1000;justify-content:center;align-items:center;padding:20px}
   .modal.on{display:flex}
   .modal .box{background:#fff;border-radius:14px;padding:26px;
-    width:100%;max-width:460px}
+    width:100%;max-width:460px;animation:modalIn .25s ease}
+  @keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
   .modal h3{margin-bottom:16px;font-size:17px}
   .modal label{display:block;font-size:13px;font-weight:600;
     margin-bottom:6px;margin-top:12px}
@@ -116,9 +104,11 @@
   .modal input:focus{border-color:#667eea}
   .modal .acts{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
   .btn-c{padding:10px 20px;background:#f3f4f6;color:#1a1d29;border:1.5px solid #e5e7eb;
-    border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+    border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+  .btn-c:hover{background:#e5e7eb}
   .btn-s{padding:10px 22px;background:#667eea;color:#fff;border:none;
-    border-radius:8px;font-size:14px;font-weight:600;cursor:pointer}
+    border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+  .btn-s:hover{background:#5568d3}
   
   .toast{position:fixed;bottom:24px;right:24px;background:#1a1d29;color:#fff;
     padding:14px 20px;border-radius:10px;font-size:14px;font-weight:500;
@@ -134,84 +124,71 @@
     .card{padding:16px}
     .row{flex-direction:column}
     .btn-p{width:100%}
+    .list-head{flex-direction:column;align-items:stretch}
+    .filters{flex-direction:column}
   }
 </style>
 </head>
 <body>
 
-<div id="login">
-  <div class="login-box">
-    <div class="ico">🔒</div>
-    <h1>Admin Login</h1>
-    <p>পাসওয়ার্ড দিন</p>
-    <input type="password" id="pw" placeholder="Password"
-      onkeypress="if(event.key==='Enter')doLogin()">
-    <button onclick="doLogin()">Login</button>
-    <div class="login-error" id="pwErr">❌ ভুল পাসওয়ার্ড</div>
-  </div>
+<div class="topbar">
+  <div class="brand"><div class="brand-ico">🔗</div> Link Manager</div>
 </div>
 
-<div id="app">
-  <div class="topbar">
-    <div class="brand"><div class="brand-ico">🔗</div> Link Manager</div>
-    <button class="logout" onclick="doLogout()">Logout</button>
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="lbl">📊 Total Links</div><div class="val" id="sTotal">0</div></div>
+    <div class="stat"><div class="lbl">👆 Total Clicks</div><div class="val" id="sClicks">0</div></div>
+    <div class="stat"><div class="lbl">👁️ Visible</div><div class="val" id="sVis">0</div></div>
+    <div class="stat"><div class="lbl">🙈 Hidden</div><div class="val" id="sHid">0</div></div>
   </div>
   
-  <div class="wrap">
-    <div class="stats">
-      <div class="stat"><div class="lbl">📊 Total</div><div class="val" id="sTotal">0</div></div>
-      <div class="stat"><div class="lbl">👆 Clicks</div><div class="val" id="sClicks">0</div></div>
-      <div class="stat"><div class="lbl">👁️ Visible</div><div class="val" id="sVis">0</div></div>
-      <div class="stat"><div class="lbl">🙈 Hidden</div><div class="val" id="sHid">0</div></div>
+  <div class="card">
+    <h2>✨ নতুন লিংক Shorten করুন</h2>
+    <div class="row">
+      <input type="url" id="longUrl" placeholder="https://example.com/long-url">
+      <button class="btn-p" id="sBtn" onclick="shorten()">Shorten</button>
     </div>
-    
-    <div class="card">
-      <h2>✨ নতুন লিংক Shorten করুন</h2>
-      <div class="row">
-        <input type="url" id="longUrl" placeholder="https://example.com/long-url">
-        <button class="btn-p" id="sBtn" onclick="shorten()">Shorten</button>
-      </div>
-      <div class="result" id="result">
-        <div class="lbl">✅ তৈরি হয়েছে:</div>
-        <a href="#" id="sLink" target="_blank"></a>
-        <div class="acts">
-          <button class="btn-sm btn-copy" onclick="copyLink()">📋 Copy</button>
-          <button class="btn-sm btn-open" onclick="openLink()">🔗 Open</button>
-        </div>
+    <div class="result" id="result">
+      <div class="lbl">✅ আপনার ছোট লিংক তৈরি হয়েছে:</div>
+      <a href="#" id="sLink" target="_blank"></a>
+      <div class="acts">
+        <button class="btn-sm btn-copy" onclick="copyLink()">📋 Copy</button>
+        <button class="btn-sm btn-open" onclick="openLink()">🔗 Open</button>
       </div>
     </div>
-    
-    <div class="card">
-      <div class="list-head">
-        <h2>📚 আপনার লিংকগুলো</h2>
-        <div class="filters">
-          <input type="text" id="search" placeholder="🔍 Search..." oninput="render()">
-          <select id="filter" onchange="render()">
-            <option value="all">সব</option>
-            <option value="visible">Visible</option>
-            <option value="hidden">Hidden</option>
-          </select>
-        </div>
+  </div>
+  
+  <div class="card">
+    <div class="list-head">
+      <h2>📚 আপনার লিংকগুলো</h2>
+      <div class="filters">
+        <input type="text" id="search" placeholder="🔍 Search..." oninput="render()">
+        <select id="filter" onchange="render()">
+          <option value="all">সব দেখাও</option>
+          <option value="visible">শুধু Visible</option>
+          <option value="hidden">শুধু Hidden</option>
+        </select>
       </div>
-      <div class="links" id="linksList"></div>
-      <div class="empty" id="empty" style="display:none">
-        <div class="e">📭</div>
-        <p>এখনো কোনো লিংক নেই</p>
-      </div>
+    </div>
+    <div class="links" id="linksList"></div>
+    <div class="empty" id="empty" style="display:none">
+      <div class="e">📭</div>
+      <p>এখনো কোনো লিংক তৈরি করা হয়নি</p>
     </div>
   </div>
 </div>
 
 <div class="modal" id="modal">
   <div class="box">
-    <h3>✏️ Edit Link</h3>
+    <h3>✏️ লিংক এডিট করুন</h3>
     <label>Short Code</label>
-    <input type="text" id="eCode" maxlength="20">
+    <input type="text" id="eCode" maxlength="20" placeholder="abc123">
     <label>Original URL</label>
-    <input type="url" id="eUrl">
+    <input type="url" id="eUrl" placeholder="https://...">
     <div class="acts">
       <button class="btn-c" onclick="closeModal()">বাতিল</button>
-      <button class="btn-s" onclick="saveEdit()">সেভ</button>
+      <button class="btn-s" onclick="saveEdit()">সেভ করুন</button>
     </div>
   </div>
 </div>
@@ -219,23 +196,19 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ============================================
-// 🔴 এখানে তোমার নতুন Firebase config বসাও
-// ============================================
+// ============================================================
+// 🔴 এখানে তোমার Firebase Config বসাও
+// ============================================================
 var firebaseConfig = {
-  apiKey: "YOUR_NEW_API_KEY",
+  apiKey: "YOUR_API_KEY_HERE",
   authDomain: "income-830ab.firebaseapp.com",
   databaseURL: "https://income-830ab-default-rtdb.firebaseio.com",
   projectId: "income-830ab",
   storageBucket: "income-830ab.firebasestorage.app",
   messagingSenderId: "768026374899",
-  appId: "YOUR_NEW_APP_ID"
+  appId: "YOUR_APP_ID_HERE"
 };
-
-// ============================================
-// 🔴 ADMIN PASSWORD
-// ============================================
-var ADMIN_PASSWORD = "2255";
+// ============================================================
 </script>
 
 <script type="module">
@@ -251,6 +224,7 @@ let all = {};
 let editCode = null;
 
 function $(id) { return document.getElementById(id); }
+
 function toast(msg, type) {
   const t = $('toast');
   t.textContent = msg;
@@ -258,6 +232,7 @@ function toast(msg, type) {
   clearTimeout(window._tt);
   window._tt = setTimeout(() => { t.className = 'toast ' + (type || ''); }, 2500);
 }
+
 function genCode(n) {
   n = n || 6;
   const c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -265,40 +240,22 @@ function genCode(n) {
   for (let i = 0; i < n; i++) s += c[Math.floor(Math.random() * c.length)];
   return s;
 }
+
 function esc(s) {
   const d = document.createElement('div');
   d.textContent = s;
   return d.innerHTML;
 }
 
-window.doLogin = function() {
-  const pw = $('pw').value;
-  if (pw === window.ADMIN_PASSWORD) {
-    localStorage.setItem('auth', '1');
-    $('pwErr').style.display = 'none';
-    showApp();
-  } else {
-    $('pwErr').style.display = 'block';
-    $('pw').value = '';
-    $('pw').focus();
-  }
-};
-window.doLogout = function() {
-  localStorage.removeItem('auth');
-  location.reload();
-};
-function showApp() {
-  $('login').style.display = 'none';
-  $('app').style.display = 'block';
-  loadAll();
-}
-
+// ---- SHORTEN ----
 window.shorten = async function() {
   const btn = $('sBtn');
   const url = $('longUrl').value.trim();
-  if (!url) { toast('URL দিন!', 'err'); return; }
-  try { new URL(url); } catch { toast('সঠিক URL দিন', 'err'); return; }
-  btn.disabled = true; btn.textContent = '...';
+  if (!url) { toast('অনুগ্রহ করে একটা URL দিন!', 'err'); return; }
+  try { new URL(url); } catch { toast('সঠিক URL দিন (https:// সহ)', 'err'); return; }
+  
+  btn.disabled = true; btn.textContent = 'তৈরি হচ্ছে...';
+  
   try {
     let code, exists = true;
     while (exists) {
@@ -309,12 +266,13 @@ window.shorten = async function() {
     await set(ref(db, 'links/' + code), {
       code: code, longUrl: url, clicks: 0, hidden: false, createdAt: Date.now()
     });
+    
     const shortUrl = BASE + '?c=' + code;
     $('sLink').href = shortUrl;
     $('sLink').textContent = shortUrl;
     $('result').style.display = 'block';
     $('longUrl').value = '';
-    toast('✅ তৈরি হয়েছে!', 'ok');
+    toast('✅ লিংক তৈরি হয়েছে!', 'ok');
     loadAll();
   } catch (e) {
     console.error(e);
@@ -323,12 +281,15 @@ window.shorten = async function() {
     btn.disabled = false; btn.textContent = 'Shorten';
   }
 };
+
 window.copyLink = function() {
   navigator.clipboard.writeText($('sLink').textContent);
   toast('📋 কপি হয়েছে!', 'ok');
 };
+
 window.openLink = function() { window.open($('sLink').href, '_blank'); };
 
+// ---- LOAD ALL ----
 async function loadAll() {
   try {
     const snap = await get(child(ref(db), 'links'));
@@ -340,6 +301,7 @@ async function loadAll() {
     toast('লোড সমস্যা: ' + e.message, 'err');
   }
 }
+
 function updateStats() {
   const items = Object.values(all);
   $('sTotal').textContent = items.length;
@@ -348,6 +310,7 @@ function updateStats() {
   $('sHid').textContent = items.filter(i => i.hidden).length;
 }
 
+// ---- RENDER ----
 window.render = function() {
   const list = $('linksList'), empty = $('empty');
   const q = $('search').value.toLowerCase().trim();
@@ -372,7 +335,9 @@ window.render = function() {
       '<div class="top">' +
         '<a href="' + surl + '" target="_blank" class="surl">' + esc(surl) + '</a>' +
         '<div class="badges">' +
-          (d.hidden ? '<span class="b b-hid">🙈 Hidden</span>' : '<span class="b b-act">✅ Active</span>') +
+          (d.hidden 
+            ? '<span class="b b-hid">🙈 Hidden</span>' 
+            : '<span class="b b-act">✅ Active</span>') +
           '<span class="b b-clk">👆 ' + (d.clicks || 0) + '</span>' +
         '</div>' +
       '</div>' +
@@ -388,6 +353,7 @@ window.render = function() {
   });
 };
 
+// ---- EVENT DELEGATION ----
 document.getElementById('linksList').addEventListener('click', function(e) {
   const btn = e.target.closest('button[data-a]');
   if (!btn) return;
@@ -397,23 +363,26 @@ document.getElementById('linksList').addEventListener('click', function(e) {
   else if (action === 'del') delLink(code);
 });
 
+// ---- ACTIONS ----
 async function toggleHide(code) {
   const item = all[code];
   if (!item) return;
   try {
     await update(ref(db, 'links/' + code), { hidden: !item.hidden });
-    toast(item.hidden ? '👁️ Visible' : '🙈 Hidden', 'ok');
+    toast(item.hidden ? '👁️ এখন Visible' : '🙈 লুকানো হয়েছে', 'ok');
     loadAll();
   } catch (e) { toast('সমস্যা: ' + e.message, 'err'); }
 }
+
 async function delLink(code) {
-  if (!confirm('মুছে ফেলবেন?')) return;
+  if (!confirm('এই লিংকটি মুছে ফেলবেন?')) return;
   try {
     await remove(ref(db, 'links/' + code));
     toast('🗑️ মুছে ফেলা হয়েছে', 'ok');
     loadAll();
   } catch (e) { toast('সমস্যা: ' + e.message, 'err'); }
 }
+
 window.openModal = function(code) {
   const item = all[code];
   if (!item) return;
@@ -422,21 +391,28 @@ window.openModal = function(code) {
   $('eUrl').value = item.longUrl;
   $('modal').classList.add('on');
 };
+
 window.closeModal = function() {
   $('modal').classList.remove('on');
   editCode = null;
 };
+
 window.saveEdit = async function() {
   if (!editCode) return;
   const nc = $('eCode').value.trim();
   const nu = $('eUrl').value.trim();
-  if (!nc || !nu) { toast('সব পূরণ করুন', 'err'); return; }
+  
+  if (!nc || !nu) { toast('সব ঘর পূরণ করুন', 'err'); return; }
   try { new URL(nu); } catch { toast('সঠিক URL দিন', 'err'); return; }
-  if (!/^[a-zA-Z0-9_-]+$/.test(nc)) { toast('শুধু a-z A-Z 0-9 - _', 'err'); return; }
+  if (!/^[a-zA-Z0-9_-]+$/.test(nc)) { 
+    toast('Code এ শুধু a-z A-Z 0-9 - _ ব্যবহার করুন', 'err'); 
+    return; 
+  }
+  
   try {
     if (nc !== editCode) {
       const s = await get(child(ref(db), 'links/' + nc));
-      if (s.exists()) { toast('Code ব্যবহৃত', 'err'); return; }
+      if (s.exists()) { toast('এই Code আগে ব্যবহৃত', 'err'); return; }
       await set(ref(db, 'links/' + nc), Object.assign({}, all[editCode], {
         code: nc, longUrl: nu
       }));
@@ -449,10 +425,12 @@ window.saveEdit = async function() {
     loadAll();
   } catch (e) { toast('সমস্যা: ' + e.message, 'err'); }
 };
+
 $('modal').addEventListener('click', e => {
   if (e.target.id === 'modal') closeModal();
 });
 
+// ---- INIT / REDIRECT ----
 const params = new URLSearchParams(location.search);
 const redirCode = params.get('c');
 
@@ -461,6 +439,7 @@ if (redirCode) {
     '<div style="min-height:100vh;display:flex;justify-content:center;' +
     'align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);' +
     'color:#fff;font-family:sans-serif;font-size:18px">⏳ Redirect হচ্ছে...</div>';
+    
   (async () => {
     try {
       const s = await get(child(ref(db), 'links/' + redirCode));
@@ -472,7 +451,8 @@ if (redirCode) {
         document.body.innerHTML =
           '<div style="min-height:100vh;display:flex;justify-content:center;' +
           'align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);' +
-          'color:#fff;font-family:sans-serif;font-size:20px">❌ লিংক পাওয়া যায়নি</div>';
+          'color:#fff;font-family:sans-serif;font-size:20px;text-align:center;padding:20px">' +
+          '❌ লিংকটি পাওয়া যায়নি</div>';
       }
     } catch (e) {
       document.body.innerHTML =
@@ -482,8 +462,7 @@ if (redirCode) {
     }
   })();
 } else {
-  if (localStorage.getItem('auth') === '1') showApp();
-  else $('pw').focus();
+  loadAll();
 }
 </script>
 </body>
