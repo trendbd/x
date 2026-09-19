@@ -466,4 +466,405 @@ if (redirCode) {
 }
 </script>
 </body>
+</html>    margin-bottom:8px;flex-wrap:wrap}
+  .item .surl{font-size:15px;font-weight:700;color:#667eea;
+    text-decoration:none;word-break:break-all}
+  .item .surl:hover{text-decoration:underline}
+  .badges{display:flex;gap:6px;flex-wrap:wrap}
+  .b{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
+  .b-hid{background:#fef3c7;color:#92400e}
+  .b-clk{background:#d1fae5;color:#065f46}
+  .b-act{background:#dbeafe;color:#1e40af}
+  .item .ourl{font-size:13px;color:#6b7280;word-break:break-all;
+    padding:8px 12px;background:#f8f9fc;border-radius:6px;margin-bottom:8px}
+  .item .date{font-size:12px;color:#9ca3af;margin-bottom:10px}
+  .acts{display:flex;gap:8px;flex-wrap:wrap}
+  .ba{padding:7px 13px;border-radius:8px;border:none;font-size:13px;
+    font-weight:600;cursor:pointer;transition:.2s}
+  .b-edit{background:#e0e7ff;color:#4338ca}
+  .b-edit:hover{background:#c7d2fe}
+  .b-hide{background:#fef3c7;color:#92400e}
+  .b-hide:hover{background:#fde68a}
+  .b-del{background:#fee2e2;color:#b91c1c}
+  .b-del:hover{background:#fecaca}
+  
+  .empty{text-align:center;padding:50px 20px;color:#6b7280}
+  .empty .e{font-size:48px;margin-bottom:12px}
+  
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
+    z-index:1000;justify-content:center;align-items:center;padding:20px}
+  .modal.on{display:flex}
+  .modal .box{background:#fff;border-radius:14px;padding:26px;
+    width:100%;max-width:460px;animation:modalIn .25s ease}
+  @keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+  .modal h3{margin-bottom:16px;font-size:17px}
+  .modal label{display:block;font-size:13px;font-weight:600;
+    margin-bottom:6px;margin-top:12px}
+  .modal input{width:100%;padding:11px 14px;border:1.5px solid #e5e7eb;
+    border-radius:8px;font-size:14px;outline:none}
+  .modal input:focus{border-color:#667eea}
+  .modal .acts{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+  .btn-c{padding:10px 20px;background:#f3f4f6;color:#1a1d29;border:1.5px solid #e5e7eb;
+    border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+  .btn-c:hover{background:#e5e7eb}
+  .btn-s{padding:10px 22px;background:#667eea;color:#fff;border:none;
+    border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+  .btn-s:hover{background:#5568d3}
+  
+  .toast{position:fixed;bottom:24px;right:24px;background:#1a1d29;color:#fff;
+    padding:14px 20px;border-radius:10px;font-size:14px;font-weight:500;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);transform:translateY(100px);
+    opacity:0;transition:.3s;z-index:2000;max-width:320px}
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast.ok{background:#28a745}
+  .toast.err{background:#dc3545}
+  
+  @media(max-width:600px){
+    .topbar{padding:14px 16px}
+    .wrap{padding:18px 12px}
+    .card{padding:16px}
+    .row{flex-direction:column}
+    .btn-p{width:100%}
+    .list-head{flex-direction:column;align-items:stretch}
+    .filters{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><div class="brand-ico">🔗</div> Link Manager</div>
+</div>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="lbl">📊 Total Links</div><div class="val" id="sTotal">0</div></div>
+    <div class="stat"><div class="lbl">👆 Total Clicks</div><div class="val" id="sClicks">0</div></div>
+    <div class="stat"><div class="lbl">👁️ Visible</div><div class="val" id="sVis">0</div></div>
+    <div class="stat"><div class="lbl">🙈 Hidden</div><div class="val" id="sHid">0</div></div>
+  </div>
+  
+  <div class="card">
+    <h2>✨ নতুন লিংক Shorten করুন</h2>
+    <div class="row">
+      <input type="url" id="longUrl" placeholder="https://example.com/long-url">
+      <button class="btn-p" id="sBtn" onclick="shorten()">Shorten</button>
+    </div>
+    <div class="result" id="result">
+      <div class="lbl">✅ আপনার ছোট লিংক তৈরি হয়েছে:</div>
+      <a href="#" id="sLink" target="_blank"></a>
+      <div class="acts">
+        <button class="btn-sm btn-copy" onclick="copyLink()">📋 Copy</button>
+        <button class="btn-sm btn-open" onclick="openLink()">🔗 Open</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <div class="list-head">
+      <h2>📚 আপনার লিংকগুলো</h2>
+      <div class="filters">
+        <input type="text" id="search" placeholder="🔍 Search..." oninput="render()">
+        <select id="filter" onchange="render()">
+          <option value="all">সব দেখাও</option>
+          <option value="visible">শুধু Visible</option>
+          <option value="hidden">শুধু Hidden</option>
+        </select>
+      </div>
+    </div>
+    <div class="links" id="linksList"></div>
+    <div class="empty" id="empty" style="display:none">
+      <div class="e">📭</div>
+      <p>এখনো কোনো লিংক তৈরি করা হয়নি</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="box">
+    <h3>✏️ লিংক এডিট করুন</h3>
+    <label>Short Code</label>
+    <input type="text" id="eCode" maxlength="20" placeholder="abc123">
+    <label>Original URL</label>
+    <input type="url" id="eUrl" placeholder="https://...">
+    <div class="acts">
+      <button class="btn-c" onclick="closeModal()">বাতিল</button>
+      <button class="btn-s" onclick="saveEdit()">সেভ করুন</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// 🔴 এখানে তোমার Firebase Config বসাও
+// ============================================================
+var firebaseConfig = {
+  apiKey: "YOUR_API_KEY_HERE",
+  authDomain: "income-830ab.firebaseapp.com",
+  databaseURL: "https://income-830ab-default-rtdb.firebaseio.com",
+  projectId: "income-830ab",
+  storageBucket: "income-830ab.firebasestorage.app",
+  messagingSenderId: "768026374899",
+  appId: "YOUR_APP_ID_HERE"
+};
+// ============================================================
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, set, get, child, remove, update }
+  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const app = initializeApp(window.firebaseConfig);
+const db = getDatabase(app);
+const BASE = location.origin + location.pathname;
+
+let all = {};
+let editCode = null;
+
+function $(id) { return document.getElementById(id); }
+
+function toast(msg, type) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + (type || '');
+  clearTimeout(window._tt);
+  window._tt = setTimeout(() => { t.className = 'toast ' + (type || ''); }, 2500);
+}
+
+function genCode(n) {
+  n = n || 6;
+  const c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let s = '';
+  for (let i = 0; i < n; i++) s += c[Math.floor(Math.random() * c.length)];
+  return s;
+}
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ---- SHORTEN ----
+window.shorten = async function() {
+  const btn = $('sBtn');
+  const url = $('longUrl').value.trim();
+  if (!url) { toast('অনুগ্রহ করে একটা URL দিন!', 'err'); return; }
+  try { new URL(url); } catch { toast('সঠিক URL দিন (https:// সহ)', 'err'); return; }
+  
+  btn.disabled = true; btn.textContent = 'তৈরি হচ্ছে...';
+  
+  try {
+    let code, exists = true;
+    while (exists) {
+      code = genCode();
+      const s = await get(child(ref(db), 'links/' + code));
+      exists = s.exists();
+    }
+    await set(ref(db, 'links/' + code), {
+      code: code, longUrl: url, clicks: 0, hidden: false, createdAt: Date.now()
+    });
+    
+    const shortUrl = BASE + '?c=' + code;
+    $('sLink').href = shortUrl;
+    $('sLink').textContent = shortUrl;
+    $('result').style.display = 'block';
+    $('longUrl').value = '';
+    toast('✅ লিংক তৈরি হয়েছে!', 'ok');
+    loadAll();
+  } catch (e) {
+    console.error(e);
+    toast('সমস্যা: ' + e.message, 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Shorten';
+  }
+};
+
+window.copyLink = function() {
+  navigator.clipboard.writeText($('sLink').textContent);
+  toast('📋 কপি হয়েছে!', 'ok');
+};
+
+window.openLink = function() { window.open($('sLink').href, '_blank'); };
+
+// ---- LOAD ALL ----
+async function loadAll() {
+  try {
+    const snap = await get(child(ref(db), 'links'));
+    all = snap.exists() ? snap.val() : {};
+    updateStats();
+    render();
+  } catch (e) {
+    console.error(e);
+    toast('লোড সমস্যা: ' + e.message, 'err');
+  }
+}
+
+function updateStats() {
+  const items = Object.values(all);
+  $('sTotal').textContent = items.length;
+  $('sClicks').textContent = items.reduce((s, i) => s + (i.clicks || 0), 0);
+  $('sVis').textContent = items.filter(i => !i.hidden).length;
+  $('sHid').textContent = items.filter(i => i.hidden).length;
+}
+
+// ---- RENDER ----
+window.render = function() {
+  const list = $('linksList'), empty = $('empty');
+  const q = $('search').value.toLowerCase().trim();
+  const f = $('filter').value;
+  list.innerHTML = '';
+  
+  let items = Object.values(all).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  if (f === 'visible') items = items.filter(i => !i.hidden);
+  if (f === 'hidden') items = items.filter(i => i.hidden);
+  if (q) items = items.filter(i =>
+    i.code.toLowerCase().includes(q) || i.longUrl.toLowerCase().includes(q));
+  
+  if (!items.length) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  
+  items.forEach(d => {
+    const surl = BASE + '?c=' + d.code;
+    const date = d.createdAt ? new Date(d.createdAt).toLocaleString() : '-';
+    const div = document.createElement('div');
+    div.className = 'item' + (d.hidden ? ' hid' : '');
+    div.innerHTML =
+      '<div class="top">' +
+        '<a href="' + surl + '" target="_blank" class="surl">' + esc(surl) + '</a>' +
+        '<div class="badges">' +
+          (d.hidden 
+            ? '<span class="b b-hid">🙈 Hidden</span>' 
+            : '<span class="b b-act">✅ Active</span>') +
+          '<span class="b b-clk">👆 ' + (d.clicks || 0) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ourl">🔗 ' + esc(d.longUrl) + '</div>' +
+      '<div class="date">📅 ' + date + '</div>' +
+      '<div class="acts">' +
+        '<button class="ba b-edit" data-a="edit" data-c="' + d.code + '">✏️ Edit</button>' +
+        '<button class="ba b-hide" data-a="hide" data-c="' + d.code + '">' +
+          (d.hidden ? '👁️ Unhide' : '🙈 Hide') + '</button>' +
+        '<button class="ba b-del" data-a="del" data-c="' + d.code + '">🗑️ Delete</button>' +
+      '</div>';
+    list.appendChild(div);
+  });
+};
+
+// ---- EVENT DELEGATION ----
+document.getElementById('linksList').addEventListener('click', function(e) {
+  const btn = e.target.closest('button[data-a]');
+  if (!btn) return;
+  const action = btn.dataset.a, code = btn.dataset.c;
+  if (action === 'edit') window.openModal(code);
+  else if (action === 'hide') toggleHide(code);
+  else if (action === 'del') delLink(code);
+});
+
+// ---- ACTIONS ----
+async function toggleHide(code) {
+  const item = all[code];
+  if (!item) return;
+  try {
+    await update(ref(db, 'links/' + code), { hidden: !item.hidden });
+    toast(item.hidden ? '👁️ এখন Visible' : '🙈 লুকানো হয়েছে', 'ok');
+    loadAll();
+  } catch (e) { toast('সমস্যা: ' + e.message, 'err'); }
+}
+
+async function delLink(code) {
+  if (!confirm('এই লিংকটি মুছে ফেলবেন?')) return;
+  try {
+    await remove(ref(db, 'links/' + code));
+    toast('🗑️ মুছে ফেলা হয়েছে', 'ok');
+    loadAll();
+  } catch (e) { toast('সমস্যা: ' + e.message, 'err'); }
+}
+
+window.openModal = function(code) {
+  const item = all[code];
+  if (!item) return;
+  editCode = code;
+  $('eCode').value = item.code;
+  $('eUrl').value = item.longUrl;
+  $('modal').classList.add('on');
+};
+
+window.closeModal = function() {
+  $('modal').classList.remove('on');
+  editCode = null;
+};
+
+window.saveEdit = async function() {
+  if (!editCode) return;
+  const nc = $('eCode').value.trim();
+  const nu = $('eUrl').value.trim();
+  
+  if (!nc || !nu) { toast('সব ঘর পূরণ করুন', 'err'); return; }
+  try { new URL(nu); } catch { toast('সঠিক URL দিন', 'err'); return; }
+  if (!/^[a-zA-Z0-9_-]+$/.test(nc)) { 
+    toast('Code এ শুধু a-z A-Z 0-9 - _ ব্যবহার করুন', 'err'); 
+    return; 
+  }
+  
+  try {
+    if (nc !== editCode) {
+      const s = await get(child(ref(db), 'links/' + nc));
+      if (s.exists()) { toast('এই Code আগে ব্যবহৃত', 'err'); return; }
+      await set(ref(db, 'links/' + nc), Object.assign({}, all[editCode], {
+        code: nc, longUrl: nu
+      }));
+      await remove(ref(db, 'links/' + editCode));
+    } else {
+      await update(ref(db, 'links/' + editCode), { longUrl: nu });
+    }
+    toast('✅ আপডেট হয়েছে', 'ok');
+    closeModal();
+    loadAll();
+  } catch (e) { toast('সমস্যা: ' + e.message, 'err'); }
+};
+
+$('modal').addEventListener('click', e => {
+  if (e.target.id === 'modal') closeModal();
+});
+
+// ---- INIT / REDIRECT ----
+const params = new URLSearchParams(location.search);
+const redirCode = params.get('c');
+
+if (redirCode) {
+  document.body.innerHTML = 
+    '<div style="min-height:100vh;display:flex;justify-content:center;' +
+    'align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);' +
+    'color:#fff;font-family:sans-serif;font-size:18px">⏳ Redirect হচ্ছে...</div>';
+    
+  (async () => {
+    try {
+      const s = await get(child(ref(db), 'links/' + redirCode));
+      if (s.exists()) {
+        const d = s.val();
+        await update(ref(db, 'links/' + redirCode), { clicks: (d.clicks || 0) + 1 });
+        location.replace(d.longUrl);
+      } else {
+        document.body.innerHTML =
+          '<div style="min-height:100vh;display:flex;justify-content:center;' +
+          'align-items:center;background:linear-gradient(135deg,#667eea,#764ba2);' +
+          'color:#fff;font-family:sans-serif;font-size:20px;text-align:center;padding:20px">' +
+          '❌ লিংকটি পাওয়া যায়নি</div>';
+      }
+    } catch (e) {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;justify-content:center;' +
+        'align-items:center;background:#dc3545;color:#fff;padding:20px;' +
+        'font-family:sans-serif;text-align:center">Error: ' + e.message + '</div>';
+    }
+  })();
+} else {
+  loadAll();
+}
+</script>
+</body>
 </html>
